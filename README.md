@@ -1,5 +1,5 @@
-Role Name
-========
+blurrcat.haproxy
+================
 
 Will install haproxy and configure it.
 
@@ -20,8 +20,8 @@ This dictionary has 4 main sections :
 - frontends
 - backends
 
-Each section has the most used parameters that I can think of. This role does not have (yet) full coverage of the main haproxy project. Feel free to submit a pull request if something is missing for you.
-
+Each section has the most used parameters that I can think of. This role does not have (yet) full coverage of the main haproxy project.
+To add a parameter that's not defined in the templates, pass through "extras".
 Example Playbook
 -------------------------
 
@@ -42,6 +42,14 @@ I *highly* suggest that you use a seperate variable file for this role (using th
          servers:
            - name: 'be-mysupersite-01'
              ip: '192.168.1.100'
+         acl:
+           - name: admins
+             condition: http_auth(admins)
+         extras:
+           - |
+             userlist admins
+               user admin insecure-password admin
+           - http-request auth realm mysupersite if !admins
 ```
 
 See [the full example](https://github.com/Pheromone/ansible-haproxy/blob/master/vars/main.yml) to see all options.
