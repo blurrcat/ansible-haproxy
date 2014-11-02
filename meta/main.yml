@@ -9,7 +9,6 @@ galaxy_info:
     versions:
     - precise
     - trusty
-  - name: SmartOS
   categories:
   - networking
   - system
