@@ -1,13 +1,4 @@
 ---
-## VAR SETUP
-- name: 'Set SmartOS etc prefix'
-  set_fact: etc_prefix=/opt/local/etc
-  when: ansible_os_family == "Solaris"
-
-- name: 'Set SmartOS haproxy config location'
-  set_fact: config_location=/opt/local/etc/haproxy.cfg
-  when: ansible_os_family == "Solaris"
-
 - name: 'Set Ubuntu directory prefix'
   set_fact: etc_prefix=/etc
   when: ansible_os_family == "Debian"
@@ -17,20 +8,16 @@
   when: ansible_os_family == "Debian"
 
 ## PACKAGE INSTALL
+- name: add haproxy 1.5 ppa
+  apt_repository: repo=ppa:vbernat/haproxy-1.5 update_cache=yes
+    state=present
+  when: haproxy_version == "1.5"
 
-- name: 'Installs haproxy as well as socat for socket api'
-  apt: pkg={{ item }} state=installed
+- name: 'Installs haproxy and socat for socket api'
+  apt: apt={{ item }} state=present
   with_items:
-    - haproxy
-    - socat
-  when: ansible_os_family == 'Debian'
-
-- name: 'Installs haproxy as well as socat for socket api'
-  pkgin: name={{ item }} state=present
-  with_items:
-    - haproxy
-    - socat
-  when: ansible_os_family == 'Solaris'
+   - socat
+   - haproxy
 
 - name: 'Enable it'
   copy: src=haproxy-default dest=/etc/default/haproxy

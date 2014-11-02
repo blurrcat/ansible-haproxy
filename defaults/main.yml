@@ -1,5 +1,6 @@
 ---
 # defaults file for haproxy
+haproxy_version: "1.5"
 haproxy_global:
   log:
     - address: /dev/log

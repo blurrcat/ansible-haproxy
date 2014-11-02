@@ -1,14 +1,12 @@
 blurrcat.haproxy
 ================
 
-Will install haproxy and configure it.
+Install haproxy and configure it.
 
 Requirements
 ------------
 
-Only tested on Ubuntu and SmartOS for now.
-Some features are only possible with haproxy 1.5 (like the compresion flags).
-Ubuntu 14.04 ships with haproxy 1.4.x.
+OS: Ubuntu 14.04
 
 Role Variables
 --------------
@@ -22,6 +20,10 @@ This dictionary has 4 main sections :
 
 Each section has the most used parameters that I can think of. This role does not have (yet) full coverage of the main haproxy project.
 To add a parameter that's not defined in the templates, pass through "extras".
+
+In addition, you can choose haproxy version by setting `haproxy_version`. The
+default is "1.5", but also supports "1.4".
+
 Example Playbook
 -------------------------
 
@@ -31,6 +33,7 @@ I *highly* suggest that you use a seperate variable file for this role (using th
 - hosts: loadbalances
   roles:
      - role: haproxy
+       haproxy_version: 1.5
        haproxy_frontends:
        - name: 'fe-mysupersite'
          ip: '123.123.123.120'
@@ -52,7 +55,7 @@ I *highly* suggest that you use a seperate variable file for this role (using th
            - http-request auth realm mysupersite if !admins
 ```
 
-See [the full example](https://github.com/Pheromone/ansible-haproxy/blob/master/vars/main.yml) to see all options.
+See [the full example](https://github.com/blurrcat/ansible-haproxy/blob/master/vars/main.yml) to see all options.
 
 
 License
