@@ -68,3 +68,4 @@ Author Information
 
 Pheromone - Pierre Paul Lefebvre (lefebvre@pheromone.ca)
 ModCloth - Rafe Colton (https://github.com/rafecolton)
+blurrcat - Harry Liang (blurrcat@gmail.com)
